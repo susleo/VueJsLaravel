@@ -11,6 +11,13 @@ class Question extends Model
     //categories => belongsTo
     //like
 
+    protected $guarded = [];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function replies(){
         return $this->hasMany(Reply::class);
     }
@@ -26,5 +33,8 @@ class Question extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getPathAttribute(){
+        return asset("api/questions/$this->slug");
+    }
 
 }
